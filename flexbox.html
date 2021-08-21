@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Flexbox align 0 — starting code</title>
+    <style>
+      html {
+        font-family: sans-serif;
+      }
+
+      body {
+      }
+      /* 全体をflexboxにする。 */
+      div.panel {
+        display: flex;
+        margin: 20px;
+      }
+      /* ナビ領域 */
+      div.nav {
+        flex: initial; /* このflex-itemのサイズは中身のサイズに合わせる */
+        flex-direction: column; /* 縦並び */
+        display: flex; /* ナビ自体もflexboxにして、中身を縦並びにする。 */
+      }
+      /* コンテンツ領域 */
+      div.content {
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+      /* ナビのアイテム */
+      div.nav label {
+        display: flex;
+        align-items: center;
+        margin: 2px;
+        padding: 0 1em 0 1em;
+        color: #000;
+        background-color: #ddd;
+        border-radius: 6px 0 0 6px;
+      }
+      /* ナビのアイテム(有効時のスタイル) */
+      div.nav input:checked + label {
+        border: 1px solid #0ae;
+        color: #fff;
+        background-color: #0ae;
+      }
+      div.nav label p {
+        height: 1.2em;
+        width: 15em;
+        white-space: nowrap; /* 途中改行しない */
+        text-align: left;
+      }
+      /* 非表示用のクラス */
+      .display-none {
+        display: none; /* 非表示 */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="panel">
+      <div class="nav">
+        <input
+          type="radio"
+          id="name01"
+          name="name-list"
+          onclick="handleClick(this.id);"
+          class="display-none"
+          checked
+        />
+        <label for="name01"><p>短名（A事業部）</p></label>
+        <input
+          type="radio"
+          id="name02"
+          name="name-list"
+          onclick="handleClick(this.id);"
+          class="display-none"
+        />
+        <label for="name02"><p>長井名前之人（B事業部）</p></label>
+        <input
+          type="radio"
+          id="name03"
+          name="name-list"
+          onclick="handleClick(this.id);"
+          class="display-none"
+        />
+        <label for="name03"><p>田中太郎（C事業部）</p></label>
+        <input
+          type="radio"
+          id="name04"
+          name="name-list"
+          onclick="handleClick(this.id);"
+          class="display-none"
+        />
+        <label for="name04"><p>山田花子（D事業部）</p></label>
+      </div>
+      <div class="content">
+        <div id="c-name01" class="content-item">
+          <img src="image/スライド1.PNG" width="920px" />
+        </div>
+        <div id="c-name02" class="content-item">
+          <img src="image/スライド2.PNG" width="920px" />
+        </div>
+        <div id="c-name03" class="content-item">
+          <img src="image/スライド3.PNG" width="920px" />
+        </div>
+        <div id="c-name04" class="content-item">
+          <img src="image/スライド4.PNG" width="920px" />
+        </div>
+      </div>
+    </div>
+    <script>
+      // 初期化として、最初の人のコンテンツのみ表示するようにする。
+      handleClick("name01");
+      // ラジオボタンのクリックを処理する関数。
+      function handleClick(inputId) {
+        // クリックされたラジオボタンのIDから、
+        // それに接頭辞をつけて対応するコンテンツアイテム要素のIDを算出する。
+        let contentId = "c-" + inputId;
+        // コンテンツアイテムの表示を更新する。
+        updateContentDisplay(contentId);
+      }
+      // コンテンツアイテムのうち、引数で指定されたコンテンツIDと一致するコンテンツアイテムのみ表示状態に変更する関数。
+      function updateContentDisplay(contentId) {
+        // 全てのコンテンツアイテム要素を取得する。
+        let elements = document.getElementsByClassName("content-item");
+        let len = elements.length;
+        for (let i = 0; i < len; i++) {
+          if (elements.item(i).id === contentId) {
+            // コンテンツアイテム要素のIDが引数のコンテンツIDと等しければ、その要素を表示する。
+            elements.item(i).style.display = "block";
+          } else {
+            // それ以外の要素は非表示にする。
+            elements.item(i).style.display = "none";
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
